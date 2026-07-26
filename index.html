@@ -20,17 +20,7 @@
   <link rel="preload" as="image" href="banner.webp" type="image/webp" media="(min-width: 769px)"
     fetchpriority="high">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Google Fonts: non-render-blocking. The URL already uses display=swap. -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Lora:wght@600&display=swap"
-    media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Lora:wght@600&display=swap">
-  </noscript>
+  <!-- System fonts are used to avoid external font requests. -->
 
   <!-- Reuse the same local Font Awesome folder in every predictor tool. -->
   <link rel="stylesheet" href="fontawesome/css/all.min.css" media="print" onload="this.media='all'">
@@ -46,8 +36,8 @@
       --amber-lt: #FFFBEB;
       --red: #DC2626;
       --red-lt: #FEF2F2;
-      --sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-      --serif: "Lora", Georgia, serif;
+      --sans: Arial, Helvetica, sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
       --r: 10px;
       --r-lg: 16px;
       --r-xl: 24px;
@@ -299,6 +289,19 @@
     }
 
     /* A real image element lets the browser prioritise the LCP resource. */
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center right;
+      pointer-events: none;
+    }
+
     .hero-picture {
       position: absolute;
       inset: 0;
@@ -534,6 +537,9 @@
       display: grid;
       gap: 24px;
       counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
     .step {
@@ -733,6 +739,7 @@
     .toggle-btn {
       min-height: 40px !important;
       border: 0;
+      position: relative;
       background: transparent;
       font: inherit;
       flex: 1;
@@ -753,6 +760,31 @@
       background: #0d6dcc;
       color: #ffffff;
       box-shadow: 0 8px 18px rgba(13, 109, 204, 0.20);
+    }
+
+
+    .domicile-fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .domicile-fieldset legend {
+      width: 100%;
+    }
+
+    .toggle-btn input[type="radio"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toggle-btn:focus-within {
+      outline: 3px solid rgba(13, 109, 204, 0.28);
+      outline-offset: 2px;
     }
 
     .phone-wrap {
@@ -3807,255 +3839,278 @@
           height="46">
       </a>
 
-      <div class="header-actions">
+      <nav class="header-actions" aria-label="Quick contact">
         <a href="tel:+919999703444" class="header-btn call-btn">
-          <i class="fa-solid fa-phone"></i>
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
           <span>Call Now</span>
         </a>
 
         <a href="https://wa.me/8448207814?text=Hello%2C%20I%20want%20free%20MBBS%20counselling%20guidance."
-          target="_blank" rel="noopener noreferrer" class="header-btn whatsapp-btn">
-          <i class="fa-brands fa-whatsapp"></i>
+          target="_blank" rel="noopener" class="header-btn whatsapp-btn">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
           <span>WhatsApp</span>
         </a>
-      </div>
+      </nav>
 
     </div>
   </header>
-
   <main id="main-content">
-  <!-- HERO -->
-  <section class="hero">
-    <picture class="hero-picture" aria-hidden="true">
-      <source media="(max-width: 768px)" srcset="banner.webp" type="image/webp">
-      <img class="hero-bg" src="banner.webp" alt="" width="1959" height="500" loading="eager"
-        fetchpriority="high">
-    </picture>
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="dot"></span>
-          Built on supplied NEET 2025 Assam counselling data
-        </div>
+    <!-- HERO -->
+    <section class="hero">
+      <picture class="hero-picture" aria-hidden="true">
+        <source media="(max-width: 768px)" srcset="banner.webp" type="image/webp">
 
-        <h1>
-          Which Assam medical college<br>
-          fits your <b>NEET 2026 rank?</b>
-        </h1>
-
-        <p class="hero-sub">
-          Get an instant, personalised prediction across Gauhati Medical College, Assam Medical College, Jorhat, Silchar, Tezpur and the other Assam government medical colleges included in the supplied dataset —
-          using the supplied NEET 2025 Round 1 closing-rank data.
-        </p>
-
-        <a href="#tool" class="hero-btn">
-          Predict My Colleges
-          <span>→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- TOOL -->
-  <div class="tool-shell" id="tool">
-    <div class="tool-card">
-
-      <!-- LEFT TIMELINE -->
-      <div class="progress-wrap">
-        <div class="steps">
-          <div class="step active" id="step1">Details</div>
-          <div class="step" id="step2">Verify</div>
-          <div class="step" id="step3">Results</div>
-        </div>
-      </div>
-
-      <!-- RIGHT BODY -->
-      <div class="tool-body">
-
-        <!-- SCREEN 1: FORM -->
-        <div class="screen active" id="screen-input">
-
-          <div class="tool-head">
-            <div>
-              <div class="tool-title">Enter your NEET 2026 details</div>
-              <div class="tool-desc">Fill the details below to check your personalised Assam college prediction.
-              </div>
-            </div>
-
-            <div class="tool-mini-badge">
-              <i class="fa-solid fa-shield-halved"></i>
-              Secure
-            </div>
+        <img class="hero-bg" src="banner.webp" alt="" width="1959" height="500" loading="eager" fetchpriority="high">
+      </picture>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            Built on supplied NEET 2025 Assam counselling data
           </div>
 
-          <div class="form-grid">
+          <h1>
+            Which Assam medical college<br>
+            fits your <b>NEET 2026 rank?</b>
+          </h1>
 
-            <div class="form-row">
-              <label for="inp-name">
-                <i class="fa-solid fa-user" aria-hidden="true"></i>
-                Full Name<span class="req" aria-hidden="true">*</span>
-              </label>
-              <input class="inp" type="text" id="inp-name" name="name" placeholder="e.g. Rahul Sharma"
-                autocomplete="name" aria-describedby="err-name">
-              <div class="field-err" id="err-name">Please enter your full name</div>
-            </div>
+          <p class="hero-sub">
+            Get an instant, personalised prediction across Gauhati Medical College, Assam Medical College, Jorhat,
+            Silchar, Tezpur and the other Assam government medical colleges included in the supplied dataset —
+            using the supplied NEET 2025 Round 1 closing-rank data.
+          </p>
 
-            <div class="form-row">
-              <label for="inp-email">
-                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                Email Address<span class="req" aria-hidden="true">*</span>
-              </label>
-              <input class="inp" type="email" id="inp-email" name="email" placeholder="you@email.com"
-                autocomplete="email" inputmode="email" aria-describedby="err-email">
-              <div class="field-err" id="err-email">Please enter a valid email address</div>
-            </div>
+          <a href="#tool" class="hero-btn">
+            Predict My Colleges
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
-            <div class="form-row">
-              <label for="inp-phone">
-                <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                Mobile Number<span class="req" aria-hidden="true">*</span>
-              </label>
-              <div class="phone-wrap" id="phone-wrap">
-                <div class="phone-prefix">
-                  <i class="fa-solid fa-mobile-screen-button"></i>
-                  +91
+    <!-- TOOL -->
+    <div class="tool-shell" id="tool">
+      <div class="tool-card">
+
+        <!-- LEFT TIMELINE -->
+        <div class="progress-wrap">
+          <ol class="steps" aria-label="College prediction progress">
+            <li class="step active" id="step1" aria-current="step">Details</li>
+            <li class="step" id="step2">Verify</li>
+            <li class="step" id="step3">Results</li>
+          </ol>
+        </div>
+
+        <!-- RIGHT BODY -->
+        <div class="tool-body">
+
+          <!-- SCREEN 1: FORM -->
+          <div class="screen active" id="screen-input" aria-labelledby="predictor-heading">
+
+            <div class="tool-head">
+              <div>
+                <h2 class="tool-title" id="predictor-heading">Enter your NEET 2026 details</h2>
+                <div class="tool-desc">Fill the details below to check your personalised Assam college prediction.
                 </div>
-                <input type="tel" id="inp-phone" name="phone" placeholder="10-digit mobile number" maxlength="10"
-                  autocomplete="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" aria-describedby="err-phone">
               </div>
-              <div class="field-err" id="err-phone">Enter a valid 10-digit number starting with 6, 7, 8 or 9</div>
-            </div>
 
-            <div class="form-row">
-              <label for="inp-rank">
-                <i class="fa-solid fa-ranking-star" aria-hidden="true"></i>
-                NEET All India Rank<span class="req" aria-hidden="true">*</span>
-              </label>
-              <input class="inp" type="number" id="inp-rank" name="neet_air" placeholder="e.g. 45000" min="1"
-                inputmode="numeric" aria-describedby="err-rank">
-              <div class="field-err" id="err-rank">Enter your NEET AIR</div>
-            </div>
-
-            <div class="form-row full">
-              <label for="inp-cat">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                Assam Category<span class="req" aria-hidden="true">*</span>
-              </label>
-              <select class="inp" id="inp-cat" name="category" aria-describedby="err-cat">
-                <option value="">Select your category</option>
-                <option value="OPEN">General / UR</option>
-                <option value="EWS">EWS</option>
-                <option value="OBC">OBC / MOBC (NCL)</option>
-                <option value="SC">SC</option>
-                <option value="STP">ST (Plains)</option>
-                <option value="STH">ST (Hills)</option>
-              </select>
-              <div class="field-err" id="err-cat">Please select your category</div>
-            </div>
-
-            <div class="form-row full">
-              <div class="form-row-label" id="domicile-label">
-                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                Assam Domicile?<span class="req" aria-hidden="true">*</span>
-              </div>
-              <div class="toggle-wrap" id="domicile-toggle" role="group" aria-labelledby="domicile-label">
-                <button type="button" class="toggle-btn active" data-val="yes" aria-pressed="true"
-                  onclick="setDomicile('yes')">Yes — Assam</button>
-                <button type="button" class="toggle-btn" data-val="no" aria-pressed="false"
-                  onclick="setDomicile('no')">No — Other State</button>
+              <div class="tool-mini-badge">
+                <i class="fa-solid fa-shield-halved"></i>
+                Secure
               </div>
             </div>
 
-            <div class="form-row full">
-              <button type="button" class="btn btn-primary" id="btn-check" onclick="goToOTP()">
-                <i class="fa-solid fa-magnifying-glass-chart"></i>
-                Check My Colleges
+            <form
+              id="predictor-form"
+              class="form-grid"
+              toolname="predict_assam_mbbs"
+              tooldescription="Collects student details and prepares an indicative Assam MBBS college prediction using NEET All India Rank, category and domicile before OTP verification."
+              onsubmit="event.preventDefault(); goToOTP();"
+            >
+
+              <div class="form-row">
+                <label for="inp-name">
+                  <i class="fa-solid fa-user" aria-hidden="true"></i>
+                  Full Name<span class="req" aria-hidden="true">*</span>
+                </label>
+                <input class="inp" type="text" id="inp-name" name="name" placeholder="e.g. Rahul Sharma"
+                  autocomplete="name" aria-describedby="err-name" required
+                  toolparamdescription="The student's full name.">
+                <div class="field-err" id="err-name" role="alert" aria-live="polite">Please enter your full name</div>
+              </div>
+
+              <div class="form-row">
+                <label for="inp-email">
+                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                  Email Address<span class="req" aria-hidden="true">*</span>
+                </label>
+                <input class="inp" type="email" id="inp-email" name="email" placeholder="you@email.com"
+                  autocomplete="email" inputmode="email" aria-describedby="err-email" required
+                  toolparamdescription="The student's valid email address.">
+                <div class="field-err" id="err-email" role="alert" aria-live="polite">Please enter a valid email address</div>
+              </div>
+
+              <div class="form-row">
+                <label for="inp-phone">
+                  <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                  Mobile Number<span class="req" aria-hidden="true">*</span>
+                </label>
+                <div class="phone-wrap" id="phone-wrap">
+                  <div class="phone-prefix" aria-hidden="true">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    +91
+                  </div>
+                  <input type="tel" id="inp-phone" name="phone" placeholder="10-digit mobile number" maxlength="10"
+                    autocomplete="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" aria-describedby="err-phone"
+                    required toolparamdescription="The student's 10-digit Indian mobile number used for OTP verification.">
+                </div>
+                <div class="field-err" id="err-phone" role="alert" aria-live="polite">Enter a valid 10-digit number starting with 6, 7, 8 or 9</div>
+              </div>
+
+              <div class="form-row">
+                <label for="inp-rank">
+                  <i class="fa-solid fa-ranking-star" aria-hidden="true"></i>
+                  NEET All India Rank<span class="req" aria-hidden="true">*</span>
+                </label>
+                <input class="inp" type="number" id="inp-rank" name="neet_air" placeholder="e.g. 45000" min="1"
+                  inputmode="numeric" aria-describedby="err-rank" required
+                  toolparamdescription="The student's NEET 2026 All India Rank, not score or state rank.">
+                <div class="field-err" id="err-rank" role="alert" aria-live="polite">Enter your NEET AIR</div>
+              </div>
+
+              <div class="form-row full">
+                <label for="inp-cat">
+                  <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                  Assam Category<span class="req" aria-hidden="true">*</span>
+                </label>
+                <select class="inp" id="inp-cat" name="category" aria-describedby="err-cat" required
+                  toolparamdescription="The student's Assam counselling category.">
+                  <option value="">Select your category</option>
+                  <option value="OPEN">General / UR</option>
+                  <option value="EWS">EWS</option>
+                  <option value="OBC">OBC / MOBC (NCL)</option>
+                  <option value="SC">SC</option>
+                  <option value="STP">ST (Plains)</option>
+                  <option value="STH">ST (Hills)</option>
+                </select>
+                <div class="field-err" id="err-cat" role="alert" aria-live="polite">Please select your category</div>
+              </div>
+
+              <fieldset class="form-row full domicile-fieldset">
+                <legend class="form-row-label" id="domicile-label">
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  Assam Domicile?<span class="req" aria-hidden="true">*</span>
+                </legend>
+                <div class="toggle-wrap" id="domicile-toggle">
+                  <label class="toggle-btn active">
+                    <input type="radio" name="domicile" value="yes" checked required
+                      onchange="setDomicile(this.value)"
+                      toolparamdescription="Whether the student holds valid Assam domicile.">
+                    <span>Yes — Assam</span>
+                  </label>
+                  <label class="toggle-btn">
+                    <input type="radio" name="domicile" value="no"
+                      onchange="setDomicile(this.value)"
+                      toolparamdescription="Whether the student is applying without Assam domicile.">
+                    <span>No — Other State</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="form-row full">
+                <button type="submit" class="btn btn-primary" id="btn-check">
+                  <i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i>
+                  Check My Colleges
+                </button>
+              </div>
+
+              <div class="form-safe-note">
+                <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                Your details are used only to generate and send your report.
+              </div>
+
+            </form>
+          </div>
+
+          <!-- SCREEN 2: OTP -->
+          <div class="screen" id="screen-otp">
+
+            <div class="tool-head">
+              <div>
+                <div class="tool-title">Your results are ready</div>
+                <div class="tool-desc">Verify your mobile number to unlock your full college list.</div>
+              </div>
+
+              <div class="tool-mini-badge">
+                <i class="fa-solid fa-key"></i>
+                OTP
+              </div>
+            </div>
+
+            <div class="preview-wrap">
+              <div class="preview-cards preview-blur" id="preview-cards"></div>
+              <div class="blur-lock">
+                <div class="blur-lock-inner">
+                  <i class="fa-solid fa-lock"></i>
+                  Verify to unlock your results
+                </div>
+              </div>
+            </div>
+
+            <div id="send-otp-section">
+              <div class="alert alert-info" style="margin-top:0">
+                <div class="alert-icon">
+                  <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <div>
+                  We'll send a 4-digit OTP to
+                  <strong>+91 <span id="confirm-phone"></span></strong>
+                  to confirm it's you.
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" id="btn-send-otp" onclick="sendOTP()">
+                <i class="fa-solid fa-paper-plane"></i>
+                Send OTP
               </button>
             </div>
 
-            <div class="form-safe-note">
-              <i class="fa-solid fa-lock"></i>
-              Your details are used only to generate and send your report.
-            </div>
+            <div id="otp-section" class="hidden">
+              <div class="otp-label" id="otp-label">Enter the 4-digit OTP</div>
+              <p class="otp-sub">
+                Sent to +91 <span id="otp-phone-display"></span>
+              </p>
 
-          </div>
-        </div>
-
-        <!-- SCREEN 2: OTP -->
-        <div class="screen" id="screen-otp">
-
-          <div class="tool-head">
-            <div>
-              <div class="tool-title">Your results are ready</div>
-              <div class="tool-desc">Verify your mobile number to unlock your full college list.</div>
-            </div>
-
-            <div class="tool-mini-badge">
-              <i class="fa-solid fa-key"></i>
-              OTP
-            </div>
-          </div>
-
-          <div class="preview-wrap">
-            <div class="preview-cards preview-blur" id="preview-cards"></div>
-            <div class="blur-lock">
-              <div class="blur-lock-inner">
-                <i class="fa-solid fa-lock"></i>
-                Verify to unlock your results
+              <div class="otp-grid">
+                <input class="otp-box" maxlength="1" inputmode="numeric" id="otp0" aria-label="OTP digit 1"
+                  autocomplete="one-time-code" oninput="moveOTP(0)">
+                <input class="otp-box" maxlength="1" inputmode="numeric" id="otp1" aria-label="OTP digit 2"
+                  oninput="moveOTP(1)">
+                <input class="otp-box" maxlength="1" inputmode="numeric" id="otp2" aria-label="OTP digit 3"
+                  oninput="moveOTP(2)">
+                <input class="otp-box" maxlength="1" inputmode="numeric" id="otp3" aria-label="OTP digit 4"
+                  oninput="moveOTP(3)">
               </div>
-            </div>
-          </div>
 
-          <div id="send-otp-section">
-            <div class="alert alert-info" style="margin-top:0">
-              <div class="alert-icon">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-              </div>
-              <div>
-                We'll send a 4-digit OTP to
-                <strong>+91 <span id="confirm-phone"></span></strong>
-                to confirm it's you.
-              </div>
-            </div>
+              <div class="otp-timer" id="otp-timer"></div>
+              <div class="field-err" id="otp-error" role="alert" aria-live="polite" style="text-align:center"></div>
 
-            <button type="button" class="btn btn-primary" id="btn-send-otp" onclick="sendOTP()">
-              <i class="fa-solid fa-paper-plane"></i>
-              Send OTP
-            </button>
-          </div>
+              <button type="button" class="btn btn-primary" style="margin-top:14px" id="btn-verify" onclick="verifyOTP()">
+                <i class="fa-solid fa-unlock-keyhole"></i>
+                Unlock My Colleges
+              </button>
 
-          <div id="otp-section" class="hidden">
-            <div class="otp-label" id="otp-label">Enter the 4-digit OTP</div>
-            <p class="otp-sub">
-              Sent to +91 <span id="otp-phone-display"></span>
-            </p>
-
-            <div class="otp-grid">
-              <input class="otp-box" maxlength="1" inputmode="numeric" id="otp0" aria-label="OTP digit 1" autocomplete="one-time-code" oninput="moveOTP(0)">
-              <input class="otp-box" maxlength="1" inputmode="numeric" id="otp1" aria-label="OTP digit 2" oninput="moveOTP(1)">
-              <input class="otp-box" maxlength="1" inputmode="numeric" id="otp2" aria-label="OTP digit 3" oninput="moveOTP(2)">
-              <input class="otp-box" maxlength="1" inputmode="numeric" id="otp3" aria-label="OTP digit 4" oninput="moveOTP(3)">
+              <button type="button" class="btn btn-secondary" style="margin-top:10px" onclick="backToPhone()">
+                <i class="fa-solid fa-arrow-left"></i>
+                Change Number
+              </button>
             </div>
 
-            <div class="otp-timer" id="otp-timer"></div>
-            <div class="field-err" id="otp-error" style="text-align:center"></div>
-
-            <button type="button" class="btn btn-primary" style="margin-top:14px" id="btn-verify" onclick="verifyOTP()">
-              <i class="fa-solid fa-unlock-keyhole"></i>
-              Unlock My Colleges
-            </button>
-
-            <button type="button" class="btn btn-secondary" style="margin-top:10px" onclick="backToPhone()">
-              <i class="fa-solid fa-arrow-left"></i>
-              Change Number
-            </button>
           </div>
 
         </div>
-
       </div>
     </div>
-  </div>
 
   <!-- SCREEN 3: RESULTS -->
   <div class="screen" id="screen-results">
@@ -4067,7 +4122,7 @@
         <p style="font-size:12px;color:var(--muted)">RM Group of Education · rmgoe.org · +91 99997-03444</p>
       </div>
 
-      <div class="result-summary" id="result-summary"></div>
+      <div class="result-summary" id="result-summary" role="status" aria-live="polite" aria-atomic="true"></div>
 
       <div class="tabs" role="tablist" aria-label="Prediction report sections">
         <button type="button" class="tab active" id="tab-btn-colleges" role="tab" aria-selected="true"
@@ -4712,9 +4767,19 @@
     function showErr(field, show) {
       const e = document.getElementById('err-' + field);
       const inp = document.getElementById('inp-' + field);
-      if (e) e.classList.toggle('show', show);
-      if (inp) inp.classList.toggle('err', show);
-      if (field === 'phone') document.getElementById('phone-wrap').classList.toggle('err', show);
+
+      if (e) {
+        e.classList.toggle('show', show);
+      }
+
+      if (inp) {
+        inp.classList.toggle('err', show);
+        inp.setAttribute('aria-invalid', String(show));
+      }
+
+      if (field === 'phone') {
+        document.getElementById('phone-wrap')?.classList.toggle('err', show);
+      }
     }
 
     document.getElementById('inp-phone').addEventListener('input', function () {
@@ -4723,17 +4788,20 @@
 
     function setDomicile(v) {
       domicileVal = v;
-      document.querySelectorAll('#domicile-toggle .toggle-btn').forEach(button => {
-        const isActive = button.dataset.val === v;
-        button.classList.toggle('active', isActive);
-        button.setAttribute('aria-pressed', String(isActive));
+
+      document.querySelectorAll('#domicile-toggle input[name="domicile"]').forEach(radio => {
+        const isActive = radio.value === v;
+        radio.checked = isActive;
+        radio.closest('.toggle-btn')?.classList.toggle('active', isActive);
       });
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     function runAfterLayout(callback) {
-      requestAnimationFrame(() => requestAnimationFrame(callback));
+      requestAnimationFrame(() => {
+        requestAnimationFrame(callback);
+      });
     }
 
     function safeScrollIntoView(target, block = 'start') {
@@ -4804,26 +4872,57 @@
       const toolScreens = document.querySelectorAll('.tool-body > .screen');
 
       if (id === 'screen-results') {
-        toolScreens.forEach(screen => screen.classList.remove('active'));
+        toolScreens.forEach(screen => {
+          screen.classList.remove('active');
+        });
+
         const resultPanel = ensureToolResultPanel();
         resultPanel.classList.add('active');
-        if (resultsScreen) resultsScreen.classList.add('active');
+
+        if (resultsScreen) {
+          resultsScreen.classList.add('active');
+        }
+
         document.body.classList.add('results-generated');
-        safeScrollIntoView(document.querySelector('.tool-shell'), 'start');
+
+        safeScrollIntoView(
+          document.querySelector('.tool-shell'),
+          'start'
+        );
+
         return;
       }
 
       document.body.classList.remove('results-generated');
-      if (resultsScreen) resultsScreen.classList.remove('active');
-      toolScreens.forEach(screen => screen.classList.remove('active'));
+
+      if (resultsScreen) {
+        resultsScreen.classList.remove('active');
+      }
+
+      toolScreens.forEach(screen => {
+        screen.classList.remove('active');
+      });
+
       const nextScreen = document.getElementById(id);
-      if (nextScreen) nextScreen.classList.add('active');
+
+      if (nextScreen) {
+        nextScreen.classList.add('active');
+      }
     }
     function setStep(n) {
       for (let i = 1; i <= 3; i++) {
         const s = document.getElementById('step' + i);
+        if (!s) continue;
+
         s.classList.remove('active', 'done');
-        if (i < n) s.classList.add('done'); else if (i === n) s.classList.add('active');
+        s.removeAttribute('aria-current');
+
+        if (i < n) {
+          s.classList.add('done');
+        } else if (i === n) {
+          s.classList.add('active');
+          s.setAttribute('aria-current', 'step');
+        }
       }
     }
 
@@ -5058,7 +5157,11 @@
     }
 
 
+    let isVerifyingOTP = false;
+
     async function verifyOTP() {
+      if (isVerifyingOTP) return;
+      isVerifyingOTP = true;
       const enteredOTP = ['otp0', 'otp1', 'otp2', 'otp3']
         .map(id => document.getElementById(id).value)
         .join('');
@@ -5070,6 +5173,7 @@
       if (!/^\d{4}$/.test(enteredOTP)) {
         err.textContent = 'Please enter the 4-digit OTP.';
         err.classList.add('show');
+        isVerifyingOTP = false;
         return;
       }
 
@@ -5108,6 +5212,8 @@
         safeFocus('otp0');
 
       } finally {
+        isVerifyingOTP = false;
+
         if (verifyBtn) {
           verifyBtn.disabled = false;
           verifyBtn.innerHTML = originalBtnText;
@@ -5607,20 +5713,35 @@
     let jsPDFLoadPromise = null;
 
     function loadJsPDF() {
-      if (window.jspdf?.jsPDF) return Promise.resolve();
-      if (jsPDFLoadPromise) return jsPDFLoadPromise;
+      if (window.jspdf?.jsPDF) {
+        return Promise.resolve();
+      }
+
+      if (jsPDFLoadPromise) {
+        return jsPDFLoadPromise;
+      }
 
       jsPDFLoadPromise = new Promise((resolve, reject) => {
         const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+
+        script.src =
+          'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+
         script.async = true;
-        script.onload = () => window.jspdf?.jsPDF
-          ? resolve()
-          : reject(new Error('jsPDF loaded but was not initialised.'));
+
+        script.onload = () => {
+          if (window.jspdf?.jsPDF) {
+            resolve();
+          } else {
+            reject(new Error('jsPDF loaded but was not initialised.'));
+          }
+        };
+
         script.onerror = () => {
           jsPDFLoadPromise = null;
           reject(new Error('Unable to load jsPDF.'));
         };
+
         document.head.appendChild(script);
       });
 
@@ -5903,11 +6024,9 @@
       button?.setAttribute('aria-expanded', String(open));
     }
 
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(buildFAQ, { timeout: 1200 });
-    } else {
-      setTimeout(buildFAQ, 250);
-    }
+    // Build the FAQ immediately so agents and assistive technology
+    // can inspect it in the initial accessibility tree.
+    buildFAQ();
 
   </script>
 
